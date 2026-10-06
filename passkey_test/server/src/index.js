@@ -49,6 +49,7 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/passkey', passkeyRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/updates', require('./routes/updates'));
 
 // Serve the login page + static frontend (same origin as the API)
 app.use(express.static(path.join(__dirname, '..', 'public')));

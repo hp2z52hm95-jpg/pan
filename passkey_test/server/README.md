@@ -40,6 +40,11 @@ Pure HTML/CSS/JS in `public/` — zero frontend dependencies, no CDN required.
 | POST | `/api/passkey/authenticate/complete` | – | Verify assertion → JWT |
 | GET | `/api/passkey/list` | JWT | List user's passkeys |
 | DELETE | `/api/passkey/:id` | JWT | Delete a passkey |
+| GET | `/api/updates/check?app=&current=` | – | Check for updates (launcher) |
+| GET | `/api/updates/download/:file` | JWT | Download update package (launcher) |
+
+The Delphi launcher/updater source is in `/launcher` (login + passkey +
+auto-update, runs `PandoraTool.exe` after login).
 
 ## Notes
 

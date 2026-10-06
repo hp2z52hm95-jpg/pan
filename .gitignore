@@ -13,6 +13,26 @@ npm-debug.log*
 *.sqlite-*
 **/database/
 
+# Published update packages (built per release, not committed)
+passkey_test/server/packages/*.zip
+passkey_test/server/packages/*.exe
+passkey_test/server/packages/manifest.json
+
+# Delphi build output
+__history/
+__recovery/
+*.dcu
+*.bpl
+*.dcp
+*.dproj.local
+*.identcache
+*.tvsconfig
+launcher/*.exe
+launcher/*.dll
+launcher/*.res
+launcher/Win32/
+launcher/Win64/
+
 # OS / editor
 .DS_Store
 Thumbs.db

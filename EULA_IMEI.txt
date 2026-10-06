@@ -1,0 +1,19 @@
+IMEI / SERIAL NUMBER USAGE DISCLOSURE
+
+Pandora Tool may read or repair IMEI, serial number, and other unique
+device identifiers as part of legitimate phone-servicing operations.
+
+Restore/Repair IMEI/serial values may be illegal in your jurisdiction.
+Use this feature only on devices you own or are authorized to service,
+and only in countries/territories where such operation is permitted by law.
+
+By choosing "I have read and accept the agreement" you confirm that:
+
+  * You have read and understood the warning above.
+  * You take full responsibility for the use of IMEI / serial features.
+  * Pandora team and its distributors are not liable for misuse,
+    data loss, device damage, or any legal consequences arising
+    from your use of these features.
+
+Choose "Disable this features" to permanently disable IMEI / serial
+write operations in this installation.

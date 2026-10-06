@@ -1,0 +1,52 @@
+name: Pandora Launcher
+
+# Builds PandoraLauncher.exe from the C sources with zig (no Delphi, no Visual
+# Studio) and runs the host test suite. The built .exe is uploaded as an
+# artifact, so a fresh binary can be downloaded from any successful run.
+#
+# The .exe in "PANDORA LAUNCHER/" is committed and is the one shipped to users;
+# update it by copying the artifact (or by running src/build.sh locally).
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "PANDORA LAUNCHER/**"
+      - ".github/workflows/launcher.yml"
+  pull_request:
+    paths:
+      - "PANDORA LAUNCHER/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install zig (C compiler with bundled mingw-w64)
+        run: pip install ziglang
+
+      - name: Host tests (sha256, base64url, ini, json, deflate, zip, paths, urls)
+        run: make -C "PANDORA LAUNCHER/src/tests"
+
+      - name: Build PandoraLauncher.exe
+        working-directory: PANDORA LAUNCHER/src
+        env:
+          ZIG: python3 -m ziglang
+          OUT: PandoraLauncher.exe
+        run: ./build.sh
+
+      - name: Check the binary (32-bit GUI, icon + version + manifest)
+        working-directory: PANDORA LAUNCHER/src
+        run: python3 tools/check-exe.py PandoraLauncher.exe
+
+      - uses: actions/upload-artifact@v5
+        with:
+          name: PandoraLauncher-exe
+          path: PANDORA LAUNCHER/src/PandoraLauncher.exe
+          if-no-files-found: error

@@ -319,6 +319,20 @@ typedef struct {
     int     zip_shown;     /* limits "Unpacking" lines in the log */
 } up_progress;
 
+/* a .zip always starts with "PK\x03\x04" (empty zips with "PK\x05\x06") */
+static int file_is_zip(const char *path)
+{
+    FILE *f = fs_fopen_read(path);
+    unsigned char sig[4] = { 0, 0, 0, 0 };
+    size_t got;
+
+    if (!f)
+        return 0;
+    got = fread(sig, 1, 4, f);
+    fclose(f);
+    return got == 4 && sig[0] == 'P' && sig[1] == 'K';
+}
+
 static int is_safe_file_name(const char *name)
 {
     const char *p;
@@ -443,6 +457,9 @@ int update_download_and_apply(http_client *c, const char *token, const app_ctx *
                      file, (long long)got, (long long)size);
             goto cleanup;
         }
+        if (!hash || !*hash) {
+            up_log(&up, "  (no SHA-256 in the manifest for %s - not verified)", file);
+        }
         if (hash && *hash) {
             if (sha256_file(local, hex, err, errlen) != 0) {
                 snprintf(err, errlen, "cannot read %s", file);
@@ -486,9 +503,13 @@ int update_download_and_apply(http_client *c, const char *token, const app_ctx *
         const char *file = json_str(pkg, "file", "");
         const char *kind = json_str(pkg, "kind", "zip");
         char local[2048];
+        int is_zip;
 
         fs_join(local, sizeof(local), work_dir, file);
-        if (ascii_icmp(kind, "zip") == 0) {
+        /* Trust the bytes over the manifest: "kind" defaults to "zip" even for
+         * .exe/.dll packages, and a zip always starts with "PK". */
+        is_zip = ascii_icmp(kind, "zip") == 0 && file_is_zip(local);
+        if (is_zip) {
             char zerr[512];
             up_log(&up, "Unpacking %s ...", file);
             up.zip_shown = 0;
@@ -510,6 +531,9 @@ int update_download_and_apply(http_client *c, const char *token, const app_ctx *
                     goto cleanup;
                 }
             }
+            if (ascii_icmp(kind, "zip") == 0 && !is_zip)
+                up_log(&up, "  (%s is not a zip - replacing it as a single file)",
+                       file);
             if (fs_move_over(local, target) != 0) {
                 int e = fs_last_error();
                 snprintf(err, errlen, "Replace failed for %s (error %d%s)", file, e,

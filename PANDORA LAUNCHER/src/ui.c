@@ -191,7 +191,8 @@ static int ui_run_job(HWND dialog, job_fn fn, void *ctx)
         return -1;
     }
     for (;;) {
-        DWORD w = MsgWaitForMultipleObjects(1, &j.done, FALSE, INFINITE, QS_ALLINPUT);
+        DWORD w = MsgWaitForMultipleObjects(1, &j.done, FALSE, INFINITE,
+                                            QS_ALLINPUT | MWMO_INPUTAVAILABLE);
         if (w == WAIT_OBJECT_0)
             break;
         while (PeekMessageW(&msg, NULL, 0, 0, PM_REMOVE)) {
@@ -553,11 +554,15 @@ int ui_login(launcher_ui *ui, http_client *http, const launcher_cfg *cfg, sessio
 
     EnableWindow(ui->hwnd, FALSE);
     ShowWindow(st.hwnd, SW_SHOW);
+    /* Windows disables owned windows together with their owner, so make sure
+     * the dialog itself stays usable while the launcher window is blocked */
+    EnableWindow(st.hwnd, TRUE);
     SetForegroundWindow(st.hwnd);
     SetFocus(st.hUser);
 
     while (!st.done) {
-        DWORD w2 = MsgWaitForMultipleObjects(0, NULL, FALSE, INFINITE, QS_ALLINPUT);
+        DWORD w2 = MsgWaitForMultipleObjects(0, NULL, FALSE, INFINITE,
+                                             QS_ALLINPUT | MWMO_INPUTAVAILABLE);
         (void)w2;
         while (PeekMessageW(&msg, NULL, 0, 0, PM_REMOVE)) {
             if (msg.message == WM_QUIT) {

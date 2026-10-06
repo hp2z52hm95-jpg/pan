@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pandora Tool — Sign in</title>
+<meta name="description" content="Sign in to Pandora Tool with your password or a passkey." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237c3aed'/%3E%3Cpath d='M16 6l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z' fill='white'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="bg-orbs" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<main class="shell">
+  <!-- Brand panel -->
+  <section class="brand">
+    <div class="brand-inner">
+      <div class="logo">
+        <span class="logo-mark">◈</span>
+        <span class="logo-text">Pandora <em>Tool</em></span>
+      </div>
+      <h1>Unlock the box.<br />Keep the key.</h1>
+      <p class="tagline">Professional phone servicing platform — now with phishing-resistant passkey sign-in.</p>
+      <ul class="perks">
+        <li>
+          <span class="perk-icon">🔑</span>
+          <div><strong>Passkey sign-in</strong><span>Face, fingerprint or PIN — no password to steal.</span></div>
+        </li>
+        <li>
+          <span class="perk-icon">🛡️</span>
+          <div><strong>Phishing resistant</strong><span>FIDO2 / WebAuthn cryptography bound to this site.</span></div>
+        </li>
+        <li>
+          <span class="perk-icon">⚡</span>
+          <div><strong>Fast &amp; synced</strong><span>Works with password managers &amp; security keys.</span></div>
+        </li>
+      </ul>
+      <p class="webauthn-status" id="webauthnStatus">Checking passkey support…</p>
+    </div>
+  </section>
+
+  <!-- Auth / Dashboard panel -->
+  <section class="panel">
+    <!-- ============ AUTH VIEW ============ -->
+    <div class="card" id="authView">
+      <div class="tabs" role="tablist">
+        <button class="tab active" id="tabLogin" role="tab" aria-selected="true">Sign in</button>
+        <button class="tab" id="tabRegister" role="tab" aria-selected="false">Create account</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="loginForm" class="form" autocomplete="on" novalidate>
+        <h2>Welcome back</h2>
+        <p class="sub">Sign in with your password or a passkey.</p>
+
+        <label class="field">
+          <span>Username</span>
+          <input type="text" id="loginUsername" name="username" autocomplete="username webauthn"
+                 placeholder="e.g. technician_01" required minlength="3" />
+        </label>
+
+        <label class="field">
+          <span>Password</span>
+          <div class="password-wrap">
+            <input type="password" id="loginPassword" name="current-password" autocomplete="current-password"
+                   placeholder="Your password" />
+            <button type="button" class="peek" data-peek="loginPassword" aria-label="Show password">👁</button>
+          </div>
+        </label>
+
+        <p class="form-error" id="loginError" role="alert"></p>
+
+        <button type="submit" class="btn primary" id="loginBtn">
+          <span class="btn-label">Sign in</span>
+        </button>
+
+        <div class="divider"><span>or</span></div>
+
+        <button type="button" class="btn passkey" id="passkeyLoginBtn">
+          <span class="btn-label">🔑&nbsp; Sign in with a passkey</span>
+        </button>
+        <p class="hint">Enter your username above, then use your fingerprint, face, PIN or security key.</p>
+      </form>
+
+      <!-- REGISTER -->
+      <form id="registerForm" class="form hidden" autocomplete="on" novalidate>
+        <h2>Create account</h2>
+        <p class="sub">Set up your account, then add a passkey for one-tap sign-in.</p>
+
+        <label class="field">
+          <span>Display name</span>
+          <input type="text" id="regDisplayName" name="display-name" autocomplete="nickname" placeholder="e.g. Alex" />
+        </label>
+        <label class="field">
+          <span>Username</span>
+          <input type="text" id="regUsername" name="username" autocomplete="username" placeholder="min. 3 characters" required minlength="3" />
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" id="regEmail" name="email" autocomplete="email" placeholder="you@example.com" required />
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <div class="password-wrap">
+            <input type="password" id="regPassword" name="new-password" autocomplete="new-password"
+                   placeholder="min. 8 characters" required minlength="8" />
+            <button type="button" class="peek" data-peek="regPassword" aria-label="Show password">👁</button>
+          </div>
+        </label>
+
+        <p class="form-error" id="registerError" role="alert"></p>
+
+        <button type="submit" class="btn primary" id="registerBtn">
+          <span class="btn-label">Create account</span>
+        </button>
+        <p class="hint">After creating your account we recommend adding a passkey on the next screen.</p>
+      </form>
+    </div>
+
+    <!-- ============ DASHBOARD VIEW ============ -->
+    <div class="card hidden" id="dashView">
+      <div class="user-head">
+        <div class="avatar" id="avatar">?</div>
+        <div class="user-meta">
+          <strong id="dashName">—</strong>
+          <span id="dashEmail">—</span>
+        </div>
+        <button class="btn ghost small" id="logoutBtn">Log out</button>
+      </div>
+
+      <div class="session-bar">
+        <span class="pill" id="sessionPill">● session</span>
+        <span class="credits">Credits: <strong id="dashCredits">0</strong></span>
+      </div>
+
+      <div class="passkey-head">
+        <h2>Your passkeys</h2>
+        <button class="btn small secondary" id="refreshBtn" title="Refresh list">↻</button>
+      </div>
+      <ul class="passkey-list" id="passkeyList"></ul>
+      <p class="empty hidden" id="passkeyEmpty">No passkeys yet — add one below for one-tap sign-in. 🔑</p>
+
+      <div class="add-passkey">
+        <h3>Add a new passkey</h3>
+        <div class="row">
+          <input type="text" id="deviceName" placeholder="Device name (e.g. Work laptop)" maxlength="60" />
+          <button class="btn primary small" id="addPasskeyBtn">
+            <span class="btn-label">+ Add</span>
+          </button>
+        </div>
+        <p class="hint">You'll be asked for your fingerprint, face, PIN or security key.</p>
+      </div>
+
+      <p class="form-error" id="dashError" role="alert"></p>
+    </div>
+
+    <p class="foot">Protected by FIDO2 / WebAuthn · Pandora Tool</p>
+  </section>
+</main>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

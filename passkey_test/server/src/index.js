@@ -6,6 +6,7 @@
 
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
@@ -48,6 +49,9 @@ app.use((req, res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/passkey', passkeyRoutes);
 app.use('/api/users', userRoutes);
+
+// Serve the login page + static frontend (same origin as the API)
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Health check
 app.get('/health', (req, res) => {

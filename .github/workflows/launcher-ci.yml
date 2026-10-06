@@ -1,0 +1,72 @@
+name: Launcher (native)
+
+on:
+  push:
+    branches: [main, "arena/**"]
+    paths:
+      - "PANDORA LAUNCHER/**"
+      - "passkey_test/server/**"
+      - ".github/workflows/launcher-ci.yml"
+  pull_request:
+    paths:
+      - "PANDORA LAUNCHER/**"
+      - "passkey_test/server/**"
+      - ".github/workflows/launcher-ci.yml"
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install zig (cross compiler + resource compiler)
+        run: pip install ziglang && python3 -c "import ziglang,os;print(os.path.join(os.path.dirname(ziglang.__file__),'zig'))"
+
+      - name: Portable core unit tests (JSON / SHA-256 / inflate / ZIP)
+        run: sh "PANDORA LAUNCHER/native/tests/run_tests.sh"
+
+      - name: Build PandoraLauncher.exe (32-bit)
+        run: |
+          ZIG="$(python3 -c "import ziglang,os;print(os.path.join(os.path.dirname(ziglang.__file__),'zig'))")"
+          PATH="$(dirname "$ZIG"):$PATH" sh "PANDORA LAUNCHER/native/build.sh"
+
+      - name: Check the binary is a real 32-bit Windows GUI executable
+        run: |
+          python3 - <<'PY'
+          import struct, sys
+          p = "PANDORA LAUNCHER/native/PandoraLauncher.exe"
+          d = open(p, "rb").read()
+          pe = struct.unpack_from("<I", d, 0x3C)[0]
+          assert d[pe:pe+4] == b"PE\0\0", "not a PE file"
+          machine = struct.unpack_from("<H", d, pe + 4)[0]
+          subsys = struct.unpack_from("<H", d, pe + 24 + 68)[0]
+          assert machine == 0x14C, hex(machine)          # i386
+          assert subsys == 2, subsys                       # GUI subsystem
+          for marker in (b"<assembly", b"PandoraLauncher.exe"):
+              assert marker in d, marker
+          print(f"ok: {p} ({len(d)} bytes, x86 GUI, manifest + version info)")
+          PY
+
+      - name: Smoke-test the update engine's zip path on the built binary
+        run: sh "PANDORA LAUNCHER/native/tests/run_tests.sh" > /dev/null && echo "core ok"
+
+      - name: Install server dependencies
+        working-directory: passkey_test/server
+        run: npm install --no-audit --no-fund
+
+      - name: Live API contract test (launcher request sequence)
+        run: python3 "PANDORA LAUNCHER/native/tests/api_contract_test.py"
+
+      - name: Upload PandoraLauncher.exe
+        uses: actions/upload-artifact@v4
+        with:
+          name: PandoraLauncher
+          path: |
+            PANDORA LAUNCHER/native/PandoraLauncher.exe
+            PANDORA LAUNCHER/launcher.ini.example

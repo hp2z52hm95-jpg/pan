@@ -66,26 +66,56 @@ dialog into it. So the login lives in the launcher, which runs **first**:
 | `uUpdateEngine.pas` | Version check, download+verify, close app, backup, apply, relaunch |
 | `LoginGate.pas` | Drop-in gate for a future tool rebuild (see header comment) |
 | `launcher.ini.example` | Config template |
-| `build.bat` | Command-line build script |
+| `build.bat` | Command-line build script (Delphi / MSBuild) |
+| **`PandoraLauncher.exe`** | **Ready-to-use launcher (prebuilt — see below)** |
+| `native/` | Same launcher written in plain C, builds with free tools (see `native/README.md`) |
 
 Needs only RTL/VCL units (`System.Net.HttpClient`, `System.JSON`,
 `System.Hash`, `System.Zip`, `TlHelp32`) — no third-party components.
 
-## Build
+The `native/` C build needs only Win32, WinHTTP and `webauthn.dll`; see
+`native/README.md` for its tests (portable unit tests + a live API contract
+test against the Node server).
+
+## Install (no compiler needed)
+
+`PandoraLauncher.exe` is **already built and committed** in this folder —
+there is nothing to compile to get started:
+
+```
+C:\Pandora\
+├── PandoraTool.exe
+├── PandoraLauncher.exe   ← committed in this repo, 32-bit, runs on any Windows
+└── launcher.ini          ← copy launcher.ini.example, then edit
+```
+
+Then point the user's shortcut at `PandoraLauncher.exe`.
+
+The version committed here is the C build in `native/` (369 KB, x86, built
+with `sh native/build.sh`). It is functionally identical to the Delphi
+launcher described in this file and uses the same `launcher.ini`.
+
+## Build (if you want to rebuild)
+
+Two interchangeable sources — pick whichever toolchain you have:
+
+| Source | Toolchain | Command |
+|---|---|---|
+| `native/launcher.c` | **free**: Visual Studio Build Tools, MinGW-w64, LLVM — or cross-compiled from Linux with `zig cc` | `native\build.bat` &nbsp;/&nbsp; `sh native/build.sh` |
+| `PandoraLauncher.dpr` | Delphi 10.4+ (commercial) | open the project → Save All → Run, or `build.bat` |
+
+The C build needs no third-party libraries (Win32 + WinHTTP + `webauthn.dll`)
+and compiles the icon, DPI-aware manifest and version info from
+`native/launcher.rc`. For Delphi:
 
 1. Open `PandoraLauncher.dpr` in Delphi (10.4 Sydney or newer), press **Save All**
    (generates `.dproj`/`.res`), then **Run** — or run `build.bat`.
 2. **Important:** Project → Options → Application → Manifest →
    set **"Require Administrator"** if the tool lives in `Program Files`
    (updating files there needs elevation — same as PandoraTool itself).
-3. Copy to the tool folder:
-   ```
-   C:\Pandora\
-   ├── PandoraTool.exe
-   ├── PandoraLauncher.exe   ← build output
-   └── launcher.ini           ← from launcher.ini.example, edited
-   ```
-4. Point the user's shortcut at `PandoraLauncher.exe`.
+   (The C build does this automatically: it probes the folder and elevates
+   itself only when an update must actually be written.)
+3. Copy the resulting `PandoraLauncher.exe` into the tool folder as above.
 
 ## Configure
 

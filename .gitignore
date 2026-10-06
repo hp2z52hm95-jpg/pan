@@ -33,6 +33,19 @@ PANDORA LAUNCHER/*.res
 PANDORA LAUNCHER/Win32/
 PANDORA LAUNCHER/Win64/
 
+# ...but the prebuilt launcher is shipped on purpose (see PANDORA LAUNCHER/README.md)
+!PANDORA LAUNCHER/PandoraLauncher.exe
+
+# Native launcher build output (C sources are committed, artifacts are not)
+PANDORA LAUNCHER/native/*.res
+PANDORA LAUNCHER/native/*.o
+PANDORA LAUNCHER/native/*.obj
+PANDORA LAUNCHER/native/*.exe
+PANDORA LAUNCHER/native/*.pdb
+PANDORA LAUNCHER/native/*.ilk
+PANDORA LAUNCHER/native/tests/build/
+__pycache__/
+
 # OS / editor
 .DS_Store
 Thumbs.db

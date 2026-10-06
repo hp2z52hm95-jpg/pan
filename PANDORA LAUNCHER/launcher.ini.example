@@ -1,0 +1,13 @@
+; Copy to launcher.ini next to PandoraLauncher.exe and edit.
+; RpId/Origin MUST exactly match the server's RP_ID / WEBAUTHN_ORIGIN.
+
+[Server]
+BaseURL=https://updates.example.com
+RpId=updates.example.com
+Origin=https://updates.example.com
+
+[App]
+Exe=PandoraTool.exe
+LaunchArgs=
+AutoUpdate=1
+AutoLaunch=1

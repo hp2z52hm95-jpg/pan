@@ -46,19 +46,20 @@ router.post('/register/begin', authenticateToken, async (req, res, next) => {
     const options = await generateRegistrationOptions({
       rpName: config.webauthn.rpName,
       rpID: config.webauthn.rpId,
-      userID: Buffer.from(userId),
+      userID: userId,
       userName: user.username,
       userDisplayName: user.display_name || user.username,
       attestationType: 'none',
       excludeCredentials: existingPasskeys.map(pk => ({
-        id: Buffer.from(pk.credential_id, 'base64url'),
+        id: pk.credential_id,
         type: 'public-key',
         transports: ['internal', 'hybrid']
       })),
       authenticatorSelection: {
         residentKey: 'preferred',
-        userVerification: 'preferred',
-        authenticatorAttachment: 'platform'
+        userVerification: 'preferred'
+        // NOTE: no authenticatorAttachment restriction — allows platform
+        // authenticators, password managers, and cross-platform security keys
       }
     });
 
@@ -280,7 +281,7 @@ router.post('/authenticate/complete', async (req, res, next) => {
     }
 
     // Get the passkey
-    const credentialIdBase64 = Buffer.from(response.id, 'base64').toString('base64url');
+    const credentialIdBase64 = Buffer.from(response.id, 'base64url').toString('base64url');
     const passkey = await database.get(
       'SELECT * FROM passkeys WHERE credential_id = ? AND user_id = ?',
       [credentialIdBase64, userId]

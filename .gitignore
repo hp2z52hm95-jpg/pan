@@ -1,0 +1,40 @@
+# Node
+node_modules/
+npm-debug.log*
+
+# Env / secrets
+.env
+*.local
+
+# SQLite databases (runtime data)
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+**/database/
+
+# Published update packages (built per release, not committed)
+passkey_test/server/packages/*.zip
+passkey_test/server/packages/*.exe
+passkey_test/server/packages/manifest.json
+
+# Delphi build output
+__history/
+__recovery/
+*.dcu
+*.bpl
+*.dcp
+*.dproj.local
+*.identcache
+*.tvsconfig
+PANDORA LAUNCHER/*.exe
+PANDORA LAUNCHER/*.dll
+PANDORA LAUNCHER/*.res
+PANDORA LAUNCHER/Win32/
+PANDORA LAUNCHER/Win64/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

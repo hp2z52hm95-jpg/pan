@@ -1,0 +1,17 @@
+{
+  "app": "PandoraTool",
+  "channel": "stable",
+  "latest": "10.2.21.0",
+  "publishedAt": "2026-10-06T12:00:00.000Z",
+  "notes": "Bug fixes and improved MTK DA handling.",
+  "packages": [
+    {
+      "file": "PandoraTool-10.2.21.0.zip",
+      "version": "10.2.21.0",
+      "kind": "zip",
+      "targetDir": ".",
+      "size": 30123456,
+      "sha256": "paste-sha256-here (run node scripts/make-manifest.js to generate)"
+    }
+  ]
+}

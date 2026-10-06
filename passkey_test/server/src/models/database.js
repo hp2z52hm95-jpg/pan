@@ -1,10 +1,13 @@
 /**
  * Database Models and Initialization
- * 
- * SQLite database for storing users, passkeys, and challenges
+ *
+ * SQLite database for storing users, passkeys, and challenges.
+ * Uses Node.js built-in `node:sqlite` (no native dependencies).
+ * Run node with `--experimental-sqlite` on Node 22.
  */
 
-const sqlite3 = require('sqlite3').verbose();
+const { DatabaseSync } = require('node:sqlite');
+const fs = require('fs');
 const path = require('path');
 const config = require('../config');
 
@@ -14,18 +17,13 @@ class Database {
   }
 
   async initialize() {
-    return new Promise((resolve, reject) => {
-      const dbPath = path.resolve(config.database.path);
-      this.db = new sqlite3.Database(dbPath, (err) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-        this.createTables()
-          .then(resolve)
-          .catch(reject);
-      });
-    });
+    const dbPath = path.resolve(config.database.path);
+    fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+    this.db = new DatabaseSync(dbPath);
+    // Sensible defaults
+    this.db.exec('PRAGMA journal_mode = WAL;');
+    this.db.exec('PRAGMA foreign_keys = ON;');
+    await this.createTables();
   }
 
   async createTables() {
@@ -118,39 +116,24 @@ class Database {
   }
 
   run(sql, params = []) {
-    return new Promise((resolve, reject) => {
-      this.db.run(sql, params, function(err) {
-        if (err) reject(err);
-        else resolve({ lastID: this.lastID, changes: this.changes });
-      });
-    });
+    const stmt = this.db.prepare(sql);
+    const info = stmt.run(...params);
+    return Promise.resolve({ lastID: Number(info.lastInsertRowid), changes: Number(info.changes) });
   }
 
   get(sql, params = []) {
-    return new Promise((resolve, reject) => {
-      this.db.get(sql, params, (err, row) => {
-        if (err) reject(err);
-        else resolve(row);
-      });
-    });
+    const stmt = this.db.prepare(sql);
+    return Promise.resolve(stmt.get(...params));
   }
 
   all(sql, params = []) {
-    return new Promise((resolve, reject) => {
-      this.db.all(sql, params, (err, rows) => {
-        if (err) reject(err);
-        else resolve(rows);
-      });
-    });
+    const stmt = this.db.prepare(sql);
+    return Promise.resolve(stmt.all(...params));
   }
 
   close() {
-    return new Promise((resolve, reject) => {
-      this.db.close((err) => {
-        if (err) reject(err);
-        else resolve();
-      });
-    });
+    if (this.db) this.db.close();
+    return Promise.resolve();
   }
 }
 

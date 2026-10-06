@@ -1,0 +1,392 @@
+# PandoraUpdater.exe decoded STRING resources (389 strings)
+# (String IDs: id = (blockid-1)*16 + index)
+
+65136: Path ended with an open bracket
+65137: Path ended with an open string
+65138: Invalid index for array: %s
+65139: Unexpected character while parsing indexer: %s
+65140: Empty name not allowed in dot notation, use ['']
+65152: Cannot unregister the system style
+65153: Style not registered
+65154: Cannot call BeginInvoke on a control with no parent or window handle
+65155: OLE error %.8x
+65156: Method '%s' not supported by automation object
+65157: Variant does not reference an automation object
+65158: Dispatch methods do not support more than 64 parameters
+65159: UTF8: A start byte not followed by enough continuation bytes
+65160: UTF8: An unexpected continuation byte in %d-byte UTF8
+65161: UTF8: Type cannot be determined out of header byte
+65162: The input value is not a valid JSON
+65163: . Path '%s', line %d, position %d (offset %d)
+65164: The nesting level of JSON arrays / objects is greater than %d
+65165: Value '%s' not found
+65166: Value %s cannot be added to %s
+65167: Unexpected char for root element: .
+65168: Button%d
+65169: RadioButton%d
+65170: Caption cannot be empty
+65171: Unable to load style '%s'
+65172: Unable to load styles: %s
+65173: Style '%s' already registered
+65174: Style class '%s' already registered
+65175: Style '%s' not found
+65176: Style class '%s' not found
+65177: Invalid style handle
+65178: Invalid style format
+65179: Class '%s' is already registered for '%s'
+65180: Class '%s' is not registered for '%s'
+65181: %s parameter cannot be nil
+65182: Feature not supported by this style
+65183: Style '%s' is not registered
+65184: Operation not supported on selected printer
+65185: There is no default printer currently selected
+65186: Menu '%s' is already being used by another form
+65187: Docked control must have a name
+65188: Error removing control from dock tree
+65189:  - Dock zone not found
+65190:  - Dock zone has no control
+65191: Error loading dock zone from the stream. Expecting version %d, but found %d.
+65192: Length of value array must be >= length of prompt array
+65193: Prompt array must not be empty
+65194: &Username
+65195: &Password
+65196: &Domain
+65197: Login
+65198: Cannot remove shell notification icon
+65199: %s requires Windows Vista or later
+65200: PgDn
+65201: End
+65202: Home
+65203: Left
+65204: Up
+65205: Right
+65206: Down
+65207: Ins
+65208: Del
+65209: Shift+
+65210: Ctrl+
+65211: Alt+
+65212: Value must be between %d and %d
+65213: All
+65214: Clipboard does not support Icons
+65215: Cannot open clipboard: %s
+65216: OK
+65217: Cancel
+65218: &Help
+65219: &Abort
+65220: &Retry
+65221: &Ignore
+65222: &All
+65223: N&o to All
+65224: Yes to &All
+65225: &Close
+65226: BkSp
+65227: Tab
+65228: Esc
+65229: Enter
+65230: Space
+65231: PgUp
+65232: Cannot create form. No MDI forms are currently active
+65233: Can only modify an image if it contains a bitmap
+65234: A control cannot have itself as its parent
+65235: Control '%s' is used on a not main thread
+65236: Cannot drag a form
+65237: Metafiles
+65238: Enhanced Metafiles
+65239: Icons
+65240: Bitmaps
+65241: TIFF Images
+65242: Warning
+65243: Error
+65244: Information
+65245: Confirm
+65246: &Yes
+65247: &No
+65248: Parent given is not a parent of '%s'
+65249: Cannot hide an MDI Child Form
+65250: Cannot change Visible in OnShow or OnHide
+65251: Cannot make a visible window modal
+65252: Scrollbar property out of range
+65253: %s property out of range
+65254: Menu index out of range
+65255: Menu inserted twice
+65256: Sub-menu is not in menu
+65257: Not enough timers available
+65258: Printer is not currently printing
+65259: Printing in progress
+65260: Printer index out of range
+65261: Printer selected is not valid
+65262: %s on %s
+65263: GroupIndex cannot be less than a previous menu item's GroupIndex
+65264: Out of system resources
+65265: Canvas does not allow drawing
+65266: Text format flag '%s' not supported
+65267: Invalid image frame index %d: there are %d frames (0-%d)
+65268: Invalid image size
+65269: Invalid ImageList
+65270: Unable to Replace Image
+65271: Unable to Insert Image
+65272: Invalid ImageList Index
+65273: Failed to read ImageList data from stream
+65274: Failed to write ImageList data to stream
+65275: Error creating window device context
+65276: Error creating window class
+65277: Cannot focus a disabled or invisible window
+65278: Control '%s' has no parent window
+65279: . Path:\r\n%s
+65280: No multi cast observer with ID %d was added to the observer collection
+65281: Observer is not available
+65282: SHA2: Cannot update a finalized hash
+65283: Must wait on at least one event
+65284: Cannot call BeginInvoke on a TComponent in the process of destruction
+65285: Bitmap image is not valid
+65286: Icon image is not valid
+65287: Metafile is not valid
+65288: Invalid pixel format
+65289: Invalid image
+65290: Scan line index out of range
+65291: Cannot change the size of an icon
+65292: Cannot change the size of a WIC Image
+65293: Unknown picture file extension (.%s)
+65294: Unsupported clipboard format
+65295: Unsupported stream format
+65296: Windows Server 2003 R2
+65297: Windows Server 2012
+65298: Windows Server 2012 R2
+65299: Windows Server 2016
+65300: Windows Server 2019
+65301: Windows Server 2022
+65302: Windows Server 2025
+65303: Windows 8
+65304: Windows 8.1
+65305: Windows 10
+65306: Windows 11
+65307: Cannot create instance of class %s
+65308: Observer is not supported
+65309: Cannot have multiple single cast observers added to the observers collection
+65310: The object does not implement the observer interface
+65311: No single cast observer with ID %d was added to the observer collection
+65312: Property '%s' is read-only
+65313: Property '%s' is write-only
+65314: RTTI objects cannot be manually destroyed by application code
+65315: Specified Login Credential Service not found
+65316: %s (Version %d.%d, Build %d, %5:s)
+65317: %s Service Pack %4:d (Version %1:d.%2:d, Build %3:d, %5:s)
+65318: 32-bit Edition
+65319: 64-bit Edition
+65320: Windows
+65321: Windows Vista
+65322: Windows Server 2008
+65323: Windows 7
+65324: Windows Server 2008 R2
+65325: Windows 2000
+65326: Windows XP
+65327: Windows Server 2003
+65328: No context-sensitive help installed
+65329: No help found for context %d
+65330: Unable to open Index
+65331: Unable to open Search
+65332: Unable to find a Table of Contents
+65333: No topic-based help system installed
+65334: No help found for %s
+65335: Argument out of range
+65336: Argument must not be nil
+65337: Unbalanced stack or queue operation
+65338: Item not found
+65339: Duplicates not allowed
+65340: Insufficient RTTI available to support this operation
+65341: Parameter count mismatch
+65342: Type '%s' is not declared in the interface section of a unit
+65343: VAR and OUT arguments must match parameter type exactly
+65344: The specified file already exists
+65345: The specified file is too long.
+65346: The given "%s" local time is invalid (situated within the missing period prior to DST).
+65347: No help viewer that supports filters
+65348: Invalid argument
+65349: Length of Strings and Objects arrays must be equal
+65350: Source and Destination arrays must not be the same
+65351: Class %s is not intended to be constructed
+65352: Invalid Timeout value: %s
+65353: SpinCount out of range. Must be between 0 and %d
+65354: Timespan too long
+65355: The duration cannot be returned because the absolute value exceeds the value of TTimeSpan.MaxValue
+65356: Value cannot be NaN
+65357: Negating the minimum value of a Timespan is invalid
+65358: Invalid Timespan format
+65359: Timespan element too long
+65360: Cannot wait for an externally created thread
+65361: Cannot call Start on a running or suspended thread
+65362: Cannot call CheckTerminated on an externally created thread
+65363: Cannot call SetReturnValue on an externally create thread
+65364: Parameter %s cannot be nil
+65365: Parameter %s cannot be a negative value
+65366: Input buffer exceeded for %s = %d, %s = %d
+65367: Invalid characters in path
+65368: Path is empty
+65369: The specified path is too long
+65370: The specified path was not found
+65371: The path format is not supported
+65372: The specified directory is not empty
+65373: The specified directory name is invalid
+65374: The drive cannot be found
+65375: The specified file was not found
+65376: %s has not been registered as a COM class
+65377: Error reading %s%s%s: %s
+65378: Stream read error
+65379: Property is read-only
+65380: Failed to create key %s
+65381: Failed to get data for '%s'
+65382: Failed to set data for '%s'
+65383: Resource %s not found
+65384: %s.Seek not implemented
+65385: Operation not allowed on sorted list
+65386: %s not in a class registration group
+65387: Property %s does not exist
+65388: Stream write error
+65389: Thread creation error: %s
+65390: Thread Error: %s (%d)
+65391: Cannot terminate an externally created thread
+65392: String list does not allow duplicates
+65393: Cannot create file "%s". %s
+65394: Cannot open file "%s". %s
+65395: Invalid stream format
+65396: '%s' is an invalid mask at (%d)
+65397: ''%s'' is not a valid component name
+65398: Invalid property value
+65399: Invalid property path
+65400: Invalid property value
+65401: Invalid data type for '%s'
+65402: List capacity out of bounds (%d)
+65403: List count out of bounds (%d)
+65404: List index out of bounds (%d)
+65405: .  %s range is 0..%d
+65406: .  %s is empty
+65407: Out of memory while expanding memory stream
+65408: Start index out of bounds (%d)
+65409: Invalid count (%d)
+65410: Invalid destination index (%d)
+65411: Invalid code page
+65412: Invalid encoding name
+65413: No mapping for the Unicode character exists in the target multi-byte code page
+65414: Invalid StringBaseIndex
+65415: Ancestor for '%s' not found
+65416: Cannot assign a %s to a %s
+65417: Bits index out of range
+65418: Can't write to a read-only resource stream
+65419: CheckSynchronize called from thread $%x, which is NOT the main thread
+65420: Class %s not found
+65421: A class named %s already exists
+65422: List does not allow duplicates ($0%x)
+65423: A component named %s already exists
+65424: Tue
+65425: Wed
+65426: Thu
+65427: Fri
+65428: Sat
+65429: Sunday
+65430: Monday
+65431: Tuesday
+65432: Wednesday
+65433: Thursday
+65434: Friday
+65435: Saturday
+65436: Unable to create directory
+65437: Invalid source array
+65438: Invalid destination array
+65439: Character index out of bounds (%d)
+65440: Nov
+65441: Dec
+65442: January
+65443: February
+65444: March
+65445: April
+65446: May
+65447: June
+65448: July
+65449: August
+65450: September
+65451: October
+65452: November
+65453: December
+65454: Sun
+65455: Mon
+65456: Method called on disposed object
+65457: %s (%s, line %d)
+65458: Abstract Error
+65459: Access violation at address %p in module '%s' (offset %x). %s of address %p
+65460: System Error.  Code: %d.\r\n%s%s
+65461: A call to an OS function failed
+65462: Jan
+65463: Feb
+65464: Mar
+65465: Apr
+65466: May
+65467: Jun
+65468: Jul
+65469: Aug
+65470: Sep
+65471: Oct
+65472: Custom variant type (%s%.4x) is not usable
+65473: Too many custom variant types have been registered
+65474: Could not convert variant of type (%s) into type (%s)
+65475: Overflow while converting variant of type (%s) into type (%s)
+65476: Variant overflow
+65477: Invalid argument
+65478: Invalid variant type
+65479: Operation not supported
+65480: Unexpected variant error
+65481: External exception %x
+65482: Assertion failed
+65483: Interface not supported
+65484: Exception in safecall method
+65485: Object lock not owned
+65486: Monitor support function not initialized
+65487: Feature not implemented
+65488: Format '%s' invalid or incompatible with argument
+65489: No argument for format '%s'
+65490: Variant method calls not supported
+65491: Read
+65492: Write
+65493: Execution
+65494: Invalid access
+65495: Error creating variant or safe array
+65496: Variant or safe array index out of bounds
+65497: Variant or safe array is locked
+65498: Invalid variant type conversion
+65499: Invalid variant operation
+65500: Invalid NULL variant operation
+65501: Invalid variant operation (%s%.8x)\n%s
+65502: Custom variant type (%s%.4x) is out of range
+65503: Custom variant type (%s%.4x) already used by %s
+65504: Division by zero
+65505: Range check error
+65506: Integer overflow
+65507: Invalid floating point operation
+65508: Floating point division by zero
+65509: Floating point overflow
+65510: Floating point underflow
+65511: Invalid pointer operation
+65512: Invalid class typecast
+65513: Access violation at address %p. %s of address %p
+65514: Access violation
+65515: Stack overflow
+65516: Control-C hit
+65517: Privileged instruction
+65518: Exception %s in module %s at %p.\r\n%s%s\r\n
+65519: Application Error
+65520: <unknown>
+65521: '%s' is not a valid integer value
+65522: '%s' is not a valid floating point value
+65523: '%d.%d' is not a valid timestamp
+65524: '%s' is not a valid GUID value
+65525: Invalid argument to time encode
+65526: Invalid argument to date encode
+65527: Out of memory
+65528: I/O error %d
+65529: File not found
+65530: Invalid filename
+65531: Too many open files
+65532: File access denied
+65533: Read beyond end of file
+65534: Disk full
+65535: Invalid numeric input

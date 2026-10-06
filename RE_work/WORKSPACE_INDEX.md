@@ -9,6 +9,7 @@ All outputs are **read-only / descriptive**; no DRM circumvention is performed.
 |---|---|
 | `../REVERSE_ENGINEERING_REPORT.md` | Part 1 — high-level stack, architecture, inventory, protocol overview. |
 | `DEEP_REFERENCE.md` | Part 2 — deep technical reference (compiler forensics, MetaCore API index, blob formats, protocol map, disassembly hints). |
+| `AUTH_FLOW_AND_HARDENING.md` | Part 3 — account/session/activation model reconstructed from the app's own UI + log strings, and a defensive blueprint for making a login-form bypass useless (server-authoritative authorisation, signed per-operation tokens, key custody, BOX as offline authority). |
 | `WORKSPACE_INDEX.md` | This file. |
 
 ## Sub-directories

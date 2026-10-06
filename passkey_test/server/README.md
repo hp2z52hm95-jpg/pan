@@ -43,7 +43,7 @@ Pure HTML/CSS/JS in `public/` — zero frontend dependencies, no CDN required.
 | GET | `/api/updates/check?app=&current=` | – | Check for updates (launcher) |
 | GET | `/api/updates/download/:file` | JWT | Download update package (launcher) |
 
-The Delphi launcher/updater source is in `/launcher` (login + passkey +
+The Delphi launcher/updater source is in `/PANDORA LAUNCHER` (login + passkey +
 auto-update, runs `PandoraTool.exe` after login).
 
 ## Notes

@@ -27,11 +27,11 @@ __recovery/
 *.dproj.local
 *.identcache
 *.tvsconfig
-launcher/*.exe
-launcher/*.dll
-launcher/*.res
-launcher/Win32/
-launcher/Win64/
+PANDORA LAUNCHER/*.exe
+PANDORA LAUNCHER/*.dll
+PANDORA LAUNCHER/*.res
+PANDORA LAUNCHER/Win32/
+PANDORA LAUNCHER/Win64/
 
 # OS / editor
 .DS_Store

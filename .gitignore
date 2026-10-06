@@ -18,7 +18,8 @@ passkey_test/server/packages/*.zip
 passkey_test/server/packages/*.exe
 passkey_test/server/packages/manifest.json
 
-# Delphi build output
+# Delphi build output (only the intermediate files - the shipped
+# PandoraLauncher.exe IS committed, so the folder in the repo is ready to use)
 __history/
 __recovery/
 *.dcu
@@ -27,11 +28,15 @@ __recovery/
 *.dproj.local
 *.identcache
 *.tvsconfig
-PANDORA LAUNCHER/*.exe
 PANDORA LAUNCHER/*.dll
-PANDORA LAUNCHER/*.res
 PANDORA LAUNCHER/Win32/
 PANDORA LAUNCHER/Win64/
+
+# Launcher C build output (the .exe is the only committed result)
+PANDORA LAUNCHER/src/*.res
+PANDORA LAUNCHER/src/*.o
+PANDORA LAUNCHER/src/tests/pandora-tests
+PANDORA LAUNCHER/src/tests/fixtures/tree.extracted/
 
 # OS / editor
 .DS_Store
